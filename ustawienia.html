@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telefon</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body {
+            transition: background-color 0.5s, color 0.5s;
+            background-color: #f4f4f4;
+        }
+
+        .dark-mode {
+            background-color: #333;
+            
+        }
+    </style>
+</head>
+<body onLoad="initClock()">
+    <div id="iphone">
+        <div id="ekran">
+            <div class="div1">
+                <a class="czas" id="czas"></a>
+                <img class="bara" src="bar.png">
+                <img class="wifi" src="wifi.jpg">
+            </div>
+            <div class="div21">
+                <h2>Ustawienia</h2><br>
+                <h3>Tryb ciemny</h3>
+                <div class="button-switch">
+                    <input type="checkbox" id="switch-theme" class="switch" />
+                    <label for="switch-theme" class="lbl-off">On</label>
+                    <label for="switch-theme" class="lbl-on">Off</label>
+                </div>
+                <p class="footer-text">Strona została stworzona i opublikowana przez KubaLew ©.</p>
+            </div>
+            <div class="div3">
+                <a id="home-link" href="index.html">
+                    <img class="apka1" src="strzalka.png">
+                </a>
+                <a id="mail-link" href="mail.html">
+                    <img class="apka1" src="mail.png">
+                </a>
+                <a id="aparat-link" href="aparat.html">
+                    <img class="apka1" src="aparat.png">
+                </a>
+                <a href="">
+                    <img class="apka1" src="off.png">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function displayCurrentTime() { 
+            var currentDate = new Date();
+            var hours = currentDate.getHours();
+            var minutes = currentDate.getMinutes();
+            
+            hours = (hours < 10) ? "0" + hours : hours;
+            minutes = (minutes < 10) ? "0" + minutes : minutes;
+            
+            var currentTimeString = hours + ":" + minutes;
+            document.getElementById("czas").textContent = currentTimeString;
+        }
+      
+        setInterval(displayCurrentTime, 1);
+
+        const switchTheme = document.getElementById('switch-theme');
+        const homeLink = document.getElementById('home-link');
+        const mailLink = document.getElementById('mail-link');
+        const aparatLink = document.getElementById('aparat-link');
+
+
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            switchTheme.checked = true;
+            homeLink.href = "indexD.html";
+            mailLink.href = "mailD.html";
+            aparatLink.href = "aparatD.html";
+        } else {
+            homeLink.href = "index.html";
+            mailLink.href = "mail.html";
+            aparatLink.href = "aparat.html";
+        }
+        switchTheme.addEventListener('change', function() {
+            if (switchTheme.checked) {
+                document.body.classList.add('dark-mode');
+                homeLink.href = "indexD.html";
+                mailLink.href = "mailD.html";
+                aparatLink.href = "aparatD.html";
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                document.body.classList.remove('dark-mode');
+                homeLink.href = "index.html";
+                mailLink.href = "mail.html";
+                aparatLink.href = "aparat.html";
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    </script>
+</body>
+</html>

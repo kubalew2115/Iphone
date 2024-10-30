@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        #capturedImage {
+            height: 300px; 
+            margin: 20px; 
+            display: none;
+            object-fit: cover;
+        }
+        
+        body{
+            background-color: #333;
+        }
+    
+    </style>
+</head>
+<body>
+    <div id="iphone">
+        <div id="ekran">
+            <div class="div1">
+                <a class="czas" id="czas"></a>
+                <img class="bara" src="bar.png">
+                <img class="wifi" src="wifi.jpg">
+            </div>
+            <div class="div2">
+                <h3>Galeria Zdjęć</h3>
+                
+                <img id="capturedImage" src="" alt="Captured Image" style="display: none;"/>
+
+                <p id="noImageMessage" style="color: #666666; font-weight: bold;"></p> 
+                <br>
+                <button class="bubbly-button" onclick="goBack()" style="margin-bottom: 0px;">Wróć</button>
+                <button class="bubbly-button" id="deleteImageButton" style="display: none; margin-bottom: 10px;" onclick="deleteImage()" >Usuń zdjęcie</button>
+            </div>
+            <div class="div3">
+                <a href="indexD.html">
+                <img class="apka1" src="strzalka.png">
+                </a>
+                <a href="mailD.html">
+                    <img class="apka1" src="mail.png">
+                </a>
+                <a href="aparatD.html">
+                    <img class="apka1" src="aparat.png">
+                </a>
+                <a href="">
+                    <img class="apka1" src="off.png">
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function displayCurrentTime() { 
+            var currentDate = new Date();
+            var hours = currentDate.getHours();
+            var minutes = currentDate.getMinutes();
+            
+            hours = (hours < 10) ? "0" + hours : hours;
+            minutes = (minutes < 10) ? "0" + minutes : minutes;
+            
+            var currentTimeString = hours + ":" + minutes;
+            document.getElementById("czas").textContent = currentTimeString;
+        }
+      
+        setInterval(displayCurrentTime, 1); // Update time every second
+
+        // Retrieve the image from localStorage
+        var imageData = localStorage.getItem('capturedImage');
+        var imgElement = document.getElementById('capturedImage');
+        var noImageMessage = document.getElementById('noImageMessage');
+        var deleteImageButton = document.getElementById('deleteImageButton');
+
+        if (imageData) {
+            imgElement.src = imageData;
+            imgElement.style.display = "block"; // Show the image
+            noImageMessage.textContent = ""; // Clear the no image message
+            deleteImageButton.style.display = "block"; // Show delete button
+        } else {
+            noImageMessage.textContent = 'Nie wykonano jeszcze zdjęcia.'; 
+            deleteImageButton.style.display = "none"; 
+        }
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        function deleteImage() {
+            localStorage.removeItem('capturedImage');
+            imgElement.style.display = "none";
+            noImageMessage.textContent = 'Nie wykonano jeszcze zdjęcia.';
+            deleteImageButton.style.display = "none"; 
+        }
+    </script>
+</body>
+</html>
